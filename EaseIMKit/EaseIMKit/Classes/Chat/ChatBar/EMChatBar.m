@@ -16,11 +16,10 @@
 #define kIconwidth 22
 #define kModuleMargin 10
 
-@interface EMChatBar()<UITextViewDelegate>
+@interface EMChatBar()
 
-@property (nonatomic) CGFloat version;
-
-@property (nonatomic) CGFloat previousTextViewContentHeight;
+//@property (nonatomic) CGFloat version;
+//@property (nonatomic) CGFloat previousTextViewContentHeight;
 
 @property (nonatomic, strong) UIButton *selectedButton;
 @property (nonatomic, strong) UIView *currentMoreView;
@@ -29,7 +28,7 @@
 @property (nonatomic, strong) UIButton *audioButton;//语音
 @property (nonatomic, strong) UIView *bottomLine;//下划线
 //@property (nonatomic, strong) UIButton *audioDescBtn;
-@property (nonatomic, strong) EaseChatViewModel *viewModel;
+//@property (nonatomic, strong) EaseChatViewModel *viewModel;
 @property (nonatomic, strong) UIView *quoteView;
 @property (nonatomic, strong) UILabel *quoteLabel;
 @property (nonatomic, strong) UIButton *quoteDeleteButton;
@@ -38,24 +37,24 @@
 
 @implementation EMChatBar
 
-- (instancetype)initWithViewModel:(EaseChatViewModel *)viewModel
-{
-    self = [super init];
-    if (self) {
-        _version = [[[UIDevice currentDevice] systemVersion] floatValue];
-        _previousTextViewContentHeight = kTextViewMinHeight;
-        _viewModel = viewModel;
-        [self _setupSubviews];
-    }
-    
-    return self;
-}
+//- (instancetype)initWithViewModel:(EaseChatViewModel *)viewModel
+//{
+//    self = [super init];
+//    if (self) {
+//        _version = [[[UIDevice currentDevice] systemVersion] floatValue];
+//        _previousTextViewContentHeight = kTextViewMinHeight;
+//        _viewModel = viewModel;
+//        [self _setupSubviews];
+//    }
+//
+//    return self;
+//}
 
 #pragma mark - Subviews
 
 - (void)_setupSubviews
 {
-    self.backgroundColor = _viewModel.chatBarBgColor;
+    self.backgroundColor = self.viewModel.chatBarBgColor;
     UIView *line = [[UIView alloc] init];
     line.backgroundColor = [UIColor colorWithHexString:@"#000000"];
     line.alpha = 0.1;
@@ -153,23 +152,23 @@
     [self.textView Ease_makeConstraints:^(EaseConstraintMaker *make) {
         make.top.equalTo(_quoteView.ease_bottom).offset(5);
         make.height.Ease_equalTo(kTextViewMinHeight);
-        if (_viewModel.inputBarStyle == EaseInputBarStyleAll) {
+        if (self.viewModel.inputBarStyle == EaseInputBarStyleAll) {
             make.left.equalTo(self.audioButton.ease_right).offset(kModuleMargin);
             make.right.equalTo(self.emojiButton.ease_left).offset(-kModuleMargin);
         }
-        if (_viewModel.inputBarStyle == EaseInputBarStyleNoAudio) {
+        if (self.viewModel.inputBarStyle == EaseInputBarStyleNoAudio) {
             make.left.equalTo(self).offset(16);
             make.right.equalTo(self.emojiButton.ease_left).offset(-kModuleMargin);
         }
-        if (_viewModel.inputBarStyle == EaseInputBarStyleNoEmoji) {
+        if (self.viewModel.inputBarStyle == EaseInputBarStyleNoEmoji) {
             make.left.equalTo(self.audioButton.ease_right).offset(kModuleMargin);
             make.right.equalTo(self.conversationToolBarBtn.ease_left).offset(-kModuleMargin);
         }
-        if (_viewModel.inputBarStyle == EaseInputBarStyleNoAudioAndEmoji) {
+        if (self.viewModel.inputBarStyle == EaseInputBarStyleNoAudioAndEmoji) {
             make.left.equalTo(self).offset(16);
             make.right.equalTo(self.conversationToolBarBtn.ease_left).offset(-kModuleMargin);
         }
-        if (_viewModel.inputBarStyle == EaseInputBarStyleOnlyText) {
+        if (self.viewModel.inputBarStyle == EaseInputBarStyleOnlyText) {
             make.left.equalTo(self).offset(16);
             make.right.equalTo(self).offset(-16);
         }
@@ -516,8 +515,8 @@
             nickname = quoteMessage.message.from;
         }
         NSString *content = nil;
-        if (_delegate && [_delegate respondsToSelector:@selector(chatBarQuoteMessageShowContent:)]) {
-            content = [_delegate chatBarQuoteMessageShowContent:quoteMessage.message];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(chatBarQuoteMessageShowContent:)]) {
+            content = [self.delegate chatBarQuoteMessageShowContent:quoteMessage.message];
         }
         if (!content) {
             content = quoteMessage.message.easeUI_quoteShowText;

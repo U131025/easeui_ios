@@ -13,51 +13,33 @@
 #import "EMChatBarRecordAudioView.h"
 #import "EMMoreFunctionView.h"
 #import "EaseChatViewModel.h"
+#import "EMBaseChatBar.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol EMChatBarDelegate;
-@interface EMChatBar : UIView
+@interface EMChatBar : EMBaseChatBar
 
-@property (nonatomic, weak) id<EMChatBarDelegate> delegate;
-
-@property (nonatomic, strong) EaseTextView *textView;
+//@property (nonatomic, weak) id<EMChatBarDelegate> delegate;
+//
+//@property (nonatomic, strong) EaseTextView *textView;
 
 @property (nonatomic, strong) EMChatBarRecordAudioView *recordAudioView;
 @property (nonatomic, strong) EaseChatBarEmoticonView *moreEmoticonView;
 @property (nonatomic, strong) EMMoreFunctionView *moreFunctionView;
 @property (nonatomic, copy, nullable) EaseMessageModel *quoteMessage;
 
-- (instancetype)initWithViewModel:(EaseChatViewModel *)viewModel;
+//- (instancetype)initWithViewModel:(EaseChatViewModel *)viewModel;
 
-- (void)clearInputViewText;
-
-- (void)inputViewAppendText:(NSString *)aText;
-
-- (BOOL)deleteTailText;
-
-- (void)clearMoreViewAndSelectedButton;
-
-- (void)_setupSubviews;
-
-@end
-
-
-@protocol EMChatBarDelegate <NSObject>
-
-@optional
-
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
-
-- (void)textViewDidChangeSelection:(UITextView *)textView;
-
-- (void)inputViewDidChange:(EaseTextView *)aInputView;
-
-- (void)chatBarDidShowMoreViewAction;
-
-- (void)chatBarSendMsgAction:(NSString *)text;
-
-- (NSString *)chatBarQuoteMessageShowContent:(EMChatMessage *)message;
+//- (void)clearInputViewText;
+//
+//- (void)inputViewAppendText:(NSString *)aText;
+//
+//- (BOOL)deleteTailText;
+//
+//- (void)clearMoreViewAndSelectedButton;
+//
+//- (void)_setupSubviews;
 
 @end
 
