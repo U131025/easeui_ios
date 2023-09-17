@@ -49,6 +49,10 @@ Pod::Spec.new do |s|
         'EaseIMKit/EaseIMKit/Classes/BaseTableViewController/EaseBaseTableViewController.h',
         'EaseIMKit/EaseIMKit/Classes/Common/EaseUserUtils.h',
         'EaseIMKit/EaseIMKit/Classes/Chat/ChatBar/EMChatBar.h',
+        'EaseIMKit/EaseIMKit/Classes/Common/ViewController/EaseTextView.h',
+        'EaseIMKit/EaseIMKit/Classes/Chat/ChatExtComponents/ChatEmojiUtil/Emoticon/EaseChatBarEmoticonView.h',
+        'EaseIMKit/EaseIMKit/Classes/Chat/ChatBar/MoreView/AudioRecord/EMChatBarRecordAudioView.h',
+        'EaseIMKit/EaseIMKit/Classes/Chat/ChatBar/MoreView/MoreFunction/EMMoreFunctionView.h',
     ]
 
     s.static_framework = true
