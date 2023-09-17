@@ -216,7 +216,8 @@
     }
     
     chatBar.delegate = self;
-        
+    [self.view addSubview:chatBar];
+    
     [chatBar Ease_remakeConstraints:^(EaseConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
