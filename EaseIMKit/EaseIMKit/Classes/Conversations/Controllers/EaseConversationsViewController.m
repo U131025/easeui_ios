@@ -168,6 +168,14 @@ EMClientDelegate
 }
 
 #pragma mark - Table view delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(easeTableView:heightForRowAtIndexPath:)]) {
+        return [self.delegate easeTableView:tableView heightForRowAtIndexPath:indexPath];
+    }
+    return 44;
+}
+
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos)
 {

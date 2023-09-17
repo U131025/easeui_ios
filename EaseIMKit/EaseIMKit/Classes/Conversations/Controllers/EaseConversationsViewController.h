@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)easeTableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
+- (CGFloat)easeTableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (id<EaseUserDelegate>)easeUserDelegateAtConversationId:(NSString *)conversationId
                                         conversationType:(EMConversationType)type;
 
