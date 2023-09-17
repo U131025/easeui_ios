@@ -10,6 +10,7 @@
 
 #import "EaseChatViewModel.h"
 #import "EaseChatViewControllerDelegate.h"
+#import "EMChatBar.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -58,6 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)appendAtAll;
 // 发送消息删除 @所有人
 - (void)removeAtAll;
+
+// 设置自定义输入框
+- (void)setupChatBar:(EMChatBar *)chatBar;
 
 @end
 

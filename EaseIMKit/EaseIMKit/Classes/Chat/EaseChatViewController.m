@@ -208,6 +208,34 @@
 
 #pragma mark - Subviews
 
+// 设置自定义输入框
+- (void)setupChatBar:(EMChatBar *)chatBar {
+    if (self.chatBar) {
+        [self.chatBar removeFromSuperview];
+        self.chatBar = nil;
+    }
+    
+    chatBar.delegate = self;
+    self.chatBar = chatBar;
+    
+    [self.chatBar Ease_remakeConstraints:^(EaseConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+    }];
+    //会话工具栏
+    [self _setupChatBarMoreViews];
+    
+    self.tableView.backgroundColor = _viewModel.chatViewBgColor;
+    [self.view addSubview:self.tableView];
+    [self.tableView Ease_remakeConstraints:^(EaseConstraintMaker *make) {
+        make.top.equalTo(self.view);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.bottom.equalTo(self.chatBar.ease_top);
+    }];    
+}
+
 - (void)_setupChatSubviews
 {
     self.view.backgroundColor = [UIColor clearColor];
