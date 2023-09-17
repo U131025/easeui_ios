@@ -15,7 +15,7 @@
 		9E6AD8FF26B3186600F620D5 /* EaseExtMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6AD75626B3186400F620D5 /* EaseExtMenuModel.m */; };
 		9E6AD90026B3186600F620D5 /* EaseMessageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E6AD75726B3186400F620D5 /* EaseMessageModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9E6AD90126B3186600F620D5 /* EaseChatViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6AD75826B3186400F620D5 /* EaseChatViewModel.m */; };
-		9E6AD90226B3186600F620D5 /* EMChatBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E6AD75A26B3186400F620D5 /* EMChatBar.h */; };
+		9E6AD90226B3186600F620D5 /* EMChatBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E6AD75A26B3186400F620D5 /* EMChatBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9E6AD90326B3186600F620D5 /* EMMoreFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6AD75D26B3186400F620D5 /* EMMoreFunctionView.m */; };
 		9E6AD90426B3186600F620D5 /* EaseCollectionInputBarExtCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E6AD75F26B3186400F620D5 /* EaseCollectionInputBarExtCell.h */; };
 		9E6AD90526B3186600F620D5 /* EaseCollectionLongPressCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E6AD76026B3186400F620D5 /* EaseCollectionLongPressCell.h */; };
