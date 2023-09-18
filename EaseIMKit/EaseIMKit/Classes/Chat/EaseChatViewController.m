@@ -208,32 +208,6 @@
 
 #pragma mark - Subviews
 
-// 设置自定义输入框
-- (void)setupChatBar:(EMBaseChatBar *)chatBar {
-    if (self.chatBar) {
-        [self.chatBar removeFromSuperview];
-        self.chatBar = nil;
-    }
-    
-    chatBar.delegate = self;
-    [self.view addSubview:chatBar];
-    
-    [chatBar Ease_remakeConstraints:^(EaseConstraintMaker *make) {
-        make.left.equalTo(self.view);
-        make.right.equalTo(self.view);
-        make.bottom.equalTo(self.view);
-    }];
-        
-    self.tableView.backgroundColor = _viewModel.chatViewBgColor;
-    [self.view addSubview:self.tableView];
-    [self.tableView Ease_remakeConstraints:^(EaseConstraintMaker *make) {
-        make.top.equalTo(self.view);
-        make.left.equalTo(self.view);
-        make.right.equalTo(self.view);
-        make.bottom.equalTo(chatBar.ease_top);
-    }];
-}
-
 - (void)_setupChatSubviews
 {
     self.view.backgroundColor = [UIColor clearColor];
@@ -434,6 +408,10 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(textViewDidChangeSelection:)]) {
         [self.delegate textViewDidChangeSelection: textView];
     }
+}
+
+- (void)chatBarSendPhotoAlbumAction {
+    [self chatToolBarComponentIncidentAction:EMChatToolBarPhotoAlbum];
 }
 
 - (void)chatBarSendMsgAction:(NSString *)text

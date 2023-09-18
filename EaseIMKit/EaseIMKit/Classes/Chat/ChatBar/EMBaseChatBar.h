@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)chatBarSendMsgAction:(NSString *)text;
 
+- (void)chatBarSendPhotoAlbumAction;
+
 - (NSString *)chatBarQuoteMessageShowContent:(EMChatMessage *)message;
 
 @end

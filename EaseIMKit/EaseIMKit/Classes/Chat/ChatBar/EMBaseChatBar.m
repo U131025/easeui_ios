@@ -7,6 +7,9 @@
 //
 
 #import "EMBaseChatBar.h"
+#import "View+EaseAdditions.h"
+#import "UIImage+EaseUI.h"
+#import "UIColor+EaseUI.h"
 
 #define kTextViewMinHeight 32
 #define kTextViewMaxHeight 80
@@ -45,6 +48,18 @@
 }
 
 - (void)_setupSubviews {
+    self.backgroundColor = self.viewModel.chatBarBgColor;
+    
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = [UIColor colorWithHexString:@"#000000"];
+    line.alpha = 0.1;
+    [self addSubview:line];
+    [line Ease_makeConstraints:^(EaseConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.height.equalTo(@0.5);
+    }];
     
 }
 

@@ -28,6 +28,8 @@
         _inputBarStyle = EaseInputBarStyleAll;
         _avatarStyle = RoundedCorner;
         _avatarCornerRadius = 0;
+        
+        
     }
     return self;
 }

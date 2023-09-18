@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, EaseInputBarStyle) {
     EaseInputBarStyleNoEmoji,          //无表情
     EaseInputBarStyleNoAudioAndEmoji,  //无表情和语音
     EaseInputBarStyleOnlyText,         //纯文本
+    EaseInputBarStyleCustom = 6,           //自定义
 };
 
 /*!
@@ -29,7 +30,7 @@ typedef enum {
     EaseAlignmentlLeft,          //居左排列
 } EaseAlignmentStyle;
 
-NS_ASSUME_NONNULL_BEGIN
+//NS_ASSUME_NONNULL_BEGIN
 
 @interface EaseChatViewModel : NSObject
 
@@ -49,6 +50,11 @@ NS_ASSUME_NONNULL_BEGIN
 //仅群聊可设置
 @property (nonatomic) EaseAlignmentStyle msgAlignmentStyle; //聊天区域消息排列方式
 
+// 自定义工具条按钮
+@property (nonatomic, strong) UIImage *chatBarLeftButtonImage;
+@property (nonatomic, strong) UIImage *chatBarRightButtonImage;
+@property (nonatomic, strong) UIColor *inputBgColor;
+
 @end
 
-NS_ASSUME_NONNULL_END
+//NS_ASSUME_NONNULL_END
