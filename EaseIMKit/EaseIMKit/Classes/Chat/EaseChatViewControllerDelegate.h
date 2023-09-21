@@ -86,6 +86,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 -(void)didSendMessage:(EMChatMessage *)message error:(EMError *)error;
 
+// 错误提示信息
+- (void)errorEventNotfiy:(EMError *)error;
+
 /**
  * 当前会话输入扩展区数据模型组
  *

@@ -962,11 +962,11 @@
         return;
     }
     
-    if ([self.dataArray count] >= 5) {
+    if ([self.messageList count] >= 5) {
         BOOL isRespond = NO;
-        for (int i = 0; i < self.dataArray.count; i++) {
-            EaseMessageModel *model = [self.dataArray objectAtIndex:i];
-            if (model.direction == EMMessageDirectionReceive) {
+        for (int i = 0; i < self.messageList.count; i++) {
+            EMChatMessage *model = [self.messageList objectAtIndex:i];
+            if ([model isKindOfClass:[EMChatMessage class]] && model.direction == EMMessageDirectionReceive) {
                 self.isReceiveMessage = YES;
                 break;
             }
@@ -1135,14 +1135,14 @@
     EMChatMessage *message = [[EMChatMessage alloc] initWithConversationID:to from:from to:to body:aBody ext:aExt];
     
     // 发送消息体前需要判读是否对方已回复
-    if (self.dataArray.count == 5 && self.isReceiveMessage == NO) {
+    if (self.messageList.count >= 5 && self.isReceiveMessage == NO) {
         // 提示限制
-        if (self.delegate && [self.delegate respondsToSelector:@selector(didSendMessage:error:)]) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(errorEventNotfiy:)]) {
             
             EMError *error = [[EMError alloc] init];
             error.code = EMErrorMessageExternalLogicBlocked;
             error.errorDescription = @"Please wait for reply";
-            [self.delegate didSendMessage:message error:error];
+            [self.delegate errorEventNotfiy:error];
         }
         return;
     }
@@ -1183,7 +1183,7 @@
     NSArray *formated = [self formatMessages:@[message]];
     [self.dataArray addObjectsFromArray:formated];
     [self.messageList addObject:message];
-        
+     
     [weakself refreshTableView:YES];
 
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMChatMessage *message, EMError *error) {
@@ -1216,7 +1216,7 @@
 
 - (void)refreshTableView:(BOOL)isScrollBottom
 {
-    [self checkSendMessageEnable];
+    [self checkSendMessageRevice];
     
     [self.tableView reloadData];
     [self.tableView setNeedsLayout];
