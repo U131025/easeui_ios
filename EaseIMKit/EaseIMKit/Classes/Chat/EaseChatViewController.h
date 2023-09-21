@@ -60,6 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 发送消息删除 @所有人
 - (void)removeAtAll;
 
+// 是否超出限制
+- (BOOL)checkSendMessageEnable;
+
 @end
 
 NS_ASSUME_NONNULL_END

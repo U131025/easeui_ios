@@ -65,6 +65,8 @@
 
 @property (nonatomic, strong) NSString *highlightMessageId;
 
+@property (nonatomic, assign) BOOL isReceiveMessage;
+
 @end
 
 @implementation EaseChatViewController
@@ -106,6 +108,8 @@
 {
     self = [super init];
     if (self) {
+        self.isReceiveMessage = NO;
+        
         self.endScroll = YES;
         _currentConversation = [EMClient.sharedClient.chatManager getConversation:conversationId type:conType createIfNotExist:YES];
         _msgQueue = dispatch_queue_create("EMChatMessage.com", NULL);
@@ -803,6 +807,7 @@
 
 - (void)messagesDidReceive:(NSArray *)aMessages
 {
+    self.isReceiveMessage = YES;
     __weak typeof(self) weakself = self;
     dispatch_async(self.msgQueue, ^{
         NSString *conId = weakself.currentConversation.conversationId;
@@ -952,6 +957,24 @@
 }
  
 #pragma mark - Send Message
+- (void)checkSendMessageRevice {
+    if (self.isReceiveMessage == YES) {
+        return;
+    }
+    
+    if ([self.dataArray count] >= 5) {
+        BOOL isRespond = NO;
+        for (int i = 0; i < self.dataArray.count; i++) {
+            EaseMessageModel *model = [self.dataArray objectAtIndex:i];
+            if (model.direction == EMMessageDirectionReceive) {
+                self.isReceiveMessage = YES;
+                break;
+            }
+        }
+        return;
+    }
+    return;
+}
 
 - (void)sendTextAction:(NSString *)aText
                     ext:(NSDictionary *)aExt
@@ -1106,9 +1129,24 @@
 - (void)sendMessageWithBody:(EMMessageBody *)aBody
                         ext:(NSDictionary * __nullable)aExt
 {
+    
     NSString *from = [[EMClient sharedClient] currentUsername];
     NSString *to = self.currentConversation.conversationId;
     EMChatMessage *message = [[EMChatMessage alloc] initWithConversationID:to from:from to:to body:aBody ext:aExt];
+    
+    // 发送消息体前需要判读是否对方已回复
+    if (self.dataArray.count == 5 && self.isReceiveMessage == NO) {
+        // 提示限制
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didSendMessage:error:)]) {
+            
+            EMError *error = [[EMError alloc] init];
+            error.code = EMErrorMessageExternalLogicBlocked;
+            error.errorDescription = @"Please wait for reply";
+            [self.delegate didSendMessage:message error:error];
+        }
+        return;
+    }
+        
     //是否需要发送阅读回执
     if([aExt objectForKey:MSG_EXT_READ_RECEIPT]) {
         message.isNeedGroupAck = YES;
@@ -1178,6 +1216,8 @@
 
 - (void)refreshTableView:(BOOL)isScrollBottom
 {
+    [self checkSendMessageEnable];
+    
     [self.tableView reloadData];
     [self.tableView setNeedsLayout];
     [self.tableView layoutIfNeeded];

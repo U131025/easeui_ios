@@ -88,7 +88,13 @@
         NSRange range = [text rangeOfString:urlStr options:NSCaseInsensitiveSearch];
         if(range.length > 0) {
             NSURL *url = [NSURL URLWithString:urlStr];
-            [attaStr setAttributes:@{NSLinkAttributeName : url} range:NSMakeRange(range.location, urlStr.length)];
+//            [attaStr setAttributes:@{NSLinkAttributeName : url, NSForegroundColorAttributeName: [UIColor colorWithHexString:@"#569900"]} range:NSMakeRange(range.location, urlStr.length)];
+            
+            [attaStr setAttributes:@{
+                NSForegroundColorAttributeName: [UIColor colorWithHexString:@"#569900"],
+                NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+                NSUnderlineColorAttributeName: [UIColor colorWithHexString:@"#569900"]
+            } range:NSMakeRange(range.location, urlStr.length)];
         }
     }
     /*
