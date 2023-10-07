@@ -251,7 +251,7 @@ static const void *recallViewKey = &recallViewKey;
         }
         
         CGFloat interval = (self.msgTimelTag - msg.timestamp) / 1000;
-        if (self.msgTimelTag < 0 || interval > 60 || interval < -60) {
+        if (self.msgTimelTag < 0 || interval > 300 || interval < -300) {
             NSString *timeStr = [EaseDateHelper formattedTimeFromTimeInterval:msg.timestamp];
             [formated addObject:timeStr];
             self.msgTimelTag = msg.timestamp;

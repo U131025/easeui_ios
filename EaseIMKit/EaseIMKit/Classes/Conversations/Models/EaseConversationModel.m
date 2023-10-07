@@ -108,12 +108,22 @@
             break;
         case EMMessageBodyTypeCustom:
         {
-            msgStr = EaseLocalizableString(@"[custommsg]", nil);
+            if ([msg.body isKindOfClass:[EMCustomMessageBody class]]) {
+                EMCustomMessageBody *customMsg = (EMCustomMessageBody *)(msg.body);
+                if ([customMsg.event isEqual:@"article"]) {
+                    msgStr = customMsg.customExt[@"content"];
+                } else {
+                    msgStr = EaseLocalizableString(@"[custommsg]", nil);
+                }
+                
+            } else {
+                msgStr = EaseLocalizableString(@"[custommsg]", nil);
+            }
         }
             break;
         case EMMessageBodyTypeImage:
         {
-            msgStr = EaseLocalizableString(@"[image]", nil);
+            msgStr = EaseLocalizableString(@"[picture]", nil);
         }
             break;
         case EMMessageBodyTypeFile:

@@ -54,6 +54,7 @@ typedef enum {
 @property (nonatomic, strong) UIImage *chatBarLeftButtonImage;
 @property (nonatomic, strong) UIImage *chatBarRightButtonImage;
 @property (nonatomic, strong) UIColor *inputBgColor;
+@property (nonatomic, strong) UIImage *defaultAvatarPicture;
 
 @end
 

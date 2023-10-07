@@ -21,6 +21,7 @@
 #import "EaseMessageQuoteView.h"
 #import "EaseHeaders.h"
 #import "UIImage+EaseUI.h"
+#import "EMMsgCustomBubbleView.h"
 
 @interface EaseMessageCell() <EaseMessageQuoteViewDelegate>
 
@@ -113,7 +114,8 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = [UIColor clearColor];
     _avatarView = [[UIImageView alloc] init];
-    _avatarView.contentMode = UIViewContentModeScaleAspectFit;
+//    _avatarView.contentMode = UIViewContentModeScaleAspectFit;
+    _avatarView.contentMode = UIViewContentModeScaleAspectFill;
     _avatarView.backgroundColor = [UIColor clearColor];
     _avatarView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarDidSelect:)];
@@ -275,7 +277,9 @@
             bubbleView = [[EMMsgExtGifBubbleView alloc] initWithDirection:self.direction type:aType viewModel:_viewModel];
             break;
         case EMMessageTypeCustom:
-            bubbleView = [[EMMessageBubbleView alloc] initWithDirection:self.direction type:aType
+//            bubbleView = [[EMMessageBubbleView alloc] initWithDirection:self.direction type:aType
+//                viewModel:_viewModel];
+            bubbleView = [[EMMsgCustomBubbleView alloc] initWithDirection:self.direction type:aType
                 viewModel:_viewModel];
             break;
         default:
@@ -366,16 +370,25 @@
         }
     }
     BOOL isCustomAvatar = NO;
+    UIImage *placeholderImage = [UIImage easeUIImageNamed:@"defaultAvatar"];
+    if (_viewModel.defaultAvatarPicture) {
+        _avatarView.image = _viewModel.defaultAvatarPicture;
+        placeholderImage = _viewModel.defaultAvatarPicture;
+        isCustomAvatar = YES;
+    }
+    
     if (model.userDataDelegate && [model.userDataDelegate respondsToSelector:@selector(defaultAvatar)]) {
         if (model.userDataDelegate.defaultAvatar) {
             _avatarView.image = model.userDataDelegate.defaultAvatar;
+            placeholderImage = _viewModel.defaultAvatarPicture;
             isCustomAvatar = YES;
         }
     }
+        
     if (_model.userDataDelegate && [_model.userDataDelegate respondsToSelector:@selector(avatarURL)]) {
         if ([_model.userDataDelegate.avatarURL length] > 0) {
             [_avatarView Ease_setImageWithURL:[NSURL URLWithString:_model.userDataDelegate.avatarURL]
-                               placeholderImage:[UIImage easeUIImageNamed:@"defaultAvatar"]];
+                               placeholderImage:placeholderImage];
             isCustomAvatar = YES;
         }
     }

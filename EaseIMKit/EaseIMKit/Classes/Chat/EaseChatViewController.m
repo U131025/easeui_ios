@@ -807,7 +807,6 @@
 
 - (void)messagesDidReceive:(NSArray *)aMessages
 {
-    self.isReceiveMessage = YES;
     __weak typeof(self) weakself = self;
     dispatch_async(self.msgQueue, ^{
         NSString *conId = weakself.currentConversation.conversationId;
@@ -961,12 +960,14 @@
     if (self.isReceiveMessage == YES) {
         return;
     }
-    
+        
     if ([self.messageList count] >= 5) {
-        BOOL isRespond = NO;
-        for (int i = 0; i < self.messageList.count; i++) {
-            EMChatMessage *model = [self.messageList objectAtIndex:i];
-            if ([model isKindOfClass:[EMChatMessage class]] && model.direction == EMMessageDirectionReceive) {
+        
+        NSArray *msgDatas = [[self.messageList reverseObjectEnumerator] allObjects];
+        for (int i = 0; i < msgDatas.count; i++) {
+            EMChatMessage *model = [msgDatas objectAtIndex:i];
+            if ([model isKindOfClass:[EMChatMessage class]] && model.direction == EMMessageDirectionReceive && model.timestamp > self.zeroDate) {
+                                
                 self.isReceiveMessage = YES;
                 break;
             }
@@ -1007,7 +1008,7 @@
         }
         
         CGFloat interval = (self.msgTimelTag - msg.timestamp) / 1000;
-        if (self.msgTimelTag < 0 || interval > 60 || interval < -60) {
+        if (self.msgTimelTag < 0 || interval > 300 || interval < -300) {
             NSString *timeStr = [EaseDateHelper formattedTimeFromTimeInterval:msg.timestamp];
             [formated addObject:timeStr];
             self.msgTimelTag = msg.timestamp;
@@ -1125,6 +1126,30 @@
     }
 }
 
+- (long long)zeroDate {
+       
+    NSCalendar *calender = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    
+//    NSTimeZone *timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+//    [calender setTimeZone:timeZone];
+        
+    unsigned int unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSCalendarUnitHour | NSMinuteCalendarUnit |NSSecondCalendarUnit;
+
+    NSDateComponents *components = [calender components:unitFlags fromDate:[NSDate date]];
+    
+    NSDateComponents *dateComponentsForDate = [[NSDateComponents alloc] init];
+    [dateComponentsForDate setDay:components.day];
+    [dateComponentsForDate setMonth:components.month];
+    [dateComponentsForDate setYear:components.year];
+    [dateComponentsForDate setHour:0];
+    [dateComponentsForDate setMinute:0];
+    [dateComponentsForDate setSecond:0];
+    
+    NSDate *date = [calender dateFromComponents:dateComponentsForDate];
+    NSTimeInterval ts = [date timeIntervalSince1970] * 1000;
+    return ts;
+}
+
 //发送消息体
 - (void)sendMessageWithBody:(EMMessageBody *)aBody
                         ext:(NSDictionary * __nullable)aExt
@@ -1135,18 +1160,51 @@
     EMChatMessage *message = [[EMChatMessage alloc] initWithConversationID:to from:from to:to body:aBody ext:aExt];
     
     // 发送消息体前需要判读是否对方已回复
-    if (self.messageList.count >= 5 && self.isReceiveMessage == NO) {
-        // 提示限制
-        if (self.delegate && [self.delegate respondsToSelector:@selector(errorEventNotfiy:)]) {
+    if (!self.isReceiveMessage) {
+        BOOL isSendEnable = YES;
+        long long zeroTime = self.zeroDate;
+        NSInteger sendCount = 0;
+        NSArray *msgDatas = [[self.messageList reverseObjectEnumerator] allObjects];
+        for (NSInteger i = 0; i < msgDatas.count; i++) {
+            if (sendCount >= 5) {
+                isSendEnable = NO;
+                break;
+            }
+            if (i > 5) {
+                isSendEnable = YES;
+                break;
+            }
             
-            EMError *error = [[EMError alloc] init];
-            error.code = EMErrorMessageExternalLogicBlocked;
-            error.errorDescription = @"Please wait for reply";
-            [self.delegate errorEventNotfiy:error];
+            EMChatMessage *msg = [msgDatas objectAtIndex:i];
+
+            NSString *timeStr1 = [EaseDateHelper formattedTimeFromTimeInterval:self.zeroDate];
+            NSString *timeStr2 = [EaseDateHelper formattedTimeFromTimeInterval:msg.timestamp];
+            NSLog(@"%d, %ld, %ld", i, msg.timestamp, self.zeroDate);
+            
+            if (msg.timestamp >= zeroTime) {
+                if (msg.direction == EMMessageDirectionReceive) {
+                    // 有回复消息, 直接返回
+                    isSendEnable = YES;
+                    break;
+                }
+                
+                sendCount++;
+            }
         }
-        return;
-    }
         
+        if (!isSendEnable) {
+            // 提示限制
+            if (self.delegate && [self.delegate respondsToSelector:@selector(errorEventNotfiy:)]) {
+
+                EMError *error = [[EMError alloc] init];
+                error.code = EMErrorMessageExternalLogicBlocked;
+                error.errorDescription = @"Please wait for reply";
+                [self.delegate errorEventNotfiy:error];
+            }
+            return;
+        }
+    }
+            
     //是否需要发送阅读回执
     if([aExt objectForKey:MSG_EXT_READ_RECEIPT]) {
         message.isNeedGroupAck = YES;

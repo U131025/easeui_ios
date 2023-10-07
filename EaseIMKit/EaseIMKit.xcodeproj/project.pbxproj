@@ -383,6 +383,8 @@
 		9E6ADA6F26B3186800F620D5 /* UIImage+EaseUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E6AD8F926B3186500F620D5 /* UIImage+EaseUI.h */; };
 		9E6ADA7026B3186800F620D5 /* EaseIMKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9E6AD8FB26B3186600F620D5 /* EaseIMKit.bundle */; };
 		9E6ADA7126B31C1100F620D5 /* EaseHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E6AD3F426B3097C00F620D5 /* EaseHeaders.h */; };
+		A6445B052AC08172003A8B2B /* EMMsgCustomBubbleView.h in Headers */ = {isa = PBXBuildFile; fileRef = A6445B032AC08172003A8B2B /* EMMsgCustomBubbleView.h */; };
+		A6445B062AC08172003A8B2B /* EMMsgCustomBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A6445B042AC08172003A8B2B /* EMMsgCustomBubbleView.m */; };
 		A6B9B9B32AB6B381001E817D /* EMChatMessage+EaseUIExt.m in Sources */ = {isa = PBXBuildFile; fileRef = A6B9B9B12AB6B381001E817D /* EMChatMessage+EaseUIExt.m */; };
 		A6B9B9B42AB6B381001E817D /* EMChatMessage+EaseUIExt.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B9B9B22AB6B381001E817D /* EMChatMessage+EaseUIExt.h */; };
 		A6B9B9B72AB6BAE7001E817D /* EaseMessageQuoteView.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B9B9B52AB6BAE7001E817D /* EaseMessageQuoteView.h */; };
@@ -774,6 +776,8 @@
 		9E6AD8F826B3186500F620D5 /* NSObject+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Alert.m"; sourceTree = "<group>"; };
 		9E6AD8F926B3186500F620D5 /* UIImage+EaseUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+EaseUI.h"; sourceTree = "<group>"; };
 		9E6AD8FB26B3186600F620D5 /* EaseIMKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EaseIMKit.bundle; sourceTree = "<group>"; };
+		A6445B032AC08172003A8B2B /* EMMsgCustomBubbleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EMMsgCustomBubbleView.h; sourceTree = "<group>"; };
+		A6445B042AC08172003A8B2B /* EMMsgCustomBubbleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EMMsgCustomBubbleView.m; sourceTree = "<group>"; };
 		A6B9B9B12AB6B381001E817D /* EMChatMessage+EaseUIExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "EMChatMessage+EaseUIExt.m"; path = "../../../../../../Downloads/chat-ios-master/EaseIM/Pods/EaseIMKit/EaseIMKit/EaseIMKit/Categories/EMChatMessage+EaseUIExt.m"; sourceTree = "<group>"; };
 		A6B9B9B22AB6B381001E817D /* EMChatMessage+EaseUIExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "EMChatMessage+EaseUIExt.h"; path = "../../../../../../Downloads/chat-ios-master/EaseIM/Pods/EaseIMKit/EaseIMKit/EaseIMKit/Categories/EMChatMessage+EaseUIExt.h"; sourceTree = "<group>"; };
 		A6B9B9B52AB6BAE7001E817D /* EaseMessageQuoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EaseMessageQuoteView.h; sourceTree = "<group>"; };
@@ -979,6 +983,8 @@
 				9E6AD78526B3186400F620D5 /* EMMsgTextBubbleView.m */,
 				9E6AD78826B3186400F620D5 /* EMMsgVideoBubbleView.h */,
 				9E6AD77F26B3186400F620D5 /* EMMsgVideoBubbleView.m */,
+				A6445B032AC08172003A8B2B /* EMMsgCustomBubbleView.h */,
+				A6445B042AC08172003A8B2B /* EMMsgCustomBubbleView.m */,
 			);
 			path = BubbleView;
 			sourceTree = "<group>";
@@ -1820,6 +1826,7 @@
 				9E6ADA2026B3186800F620D5 /* EaseImageHEICCoder.h in Headers */,
 				9E6ADA0026B3186800F620D5 /* UIImage+EaseGIF.h in Headers */,
 				9E6AD8FC26B3186600F620D5 /* EaseExtMenuModel.h in Headers */,
+				A6445B052AC08172003A8B2B /* EMMsgCustomBubbleView.h in Headers */,
 				9E6AD9F526B3186700F620D5 /* EaseImageGIFCoder.h in Headers */,
 				9E6AD9F826B3186700F620D5 /* NSButton+EaseWebCache.h in Headers */,
 				9E6ADA6326B3186800F620D5 /* EaseIMKitManager+ExtFunction.h in Headers */,
@@ -2037,6 +2044,7 @@
 				9E6AD93926B3186600F620D5 /* EMMsgTouchIncident.m in Sources */,
 				9E6ADA3926B3186800F620D5 /* EaseFileAttributeHelper.m in Sources */,
 				9E6AD9DE26B3186700F620D5 /* EaseImageFrame.m in Sources */,
+				A6445B062AC08172003A8B2B /* EMMsgCustomBubbleView.m in Sources */,
 				9E6AD96426B3186700F620D5 /* EaseDateHelper.m in Sources */,
 				9E6AD97E26B3186700F620D5 /* EaseViewConstraint.m in Sources */,
 				9E6AD99026B3186700F620D5 /* EasePhotoBrowser.m in Sources */,
