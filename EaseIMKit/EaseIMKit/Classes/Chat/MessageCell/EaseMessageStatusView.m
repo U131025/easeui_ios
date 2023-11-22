@@ -114,6 +114,8 @@
         //[_activityView stopAnimating];
         //[_activityView removeFromSuperview];
         
+        self.failButton.hidden = aStatus != EMMessageStatusFailed;
+        
         [_loadingView stopTimer];
         [_loadingView removeFromSuperview];
         [self addSubview:self.failButton];

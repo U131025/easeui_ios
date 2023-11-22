@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)messageCellDidClickQuote:(EaseMessageCell *)aCell;
 - (void)messageCellDidLongPressQuote:(EaseMessageCell *)aCell;
 
-- (NSAttributedString *)quoteViewShowContent:(EMChatMessage *)message;
+- (nullable NSAttributedString *)quoteViewShowContent:(EMChatMessage *)message;
 
 @end
 
